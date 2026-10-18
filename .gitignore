@@ -1,0 +1,19 @@
+# Runtime artifacts — the engines never write inside the package tree by
+# default (see OMNITAX_WORM_LEDGER_DIR / OMNITAX_IDEMPOTENCY_STORE), but
+# guard against stray local runs all the same.
+data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.jsonl
+
+# Quarantined: coupled platform routes. Never part of the public release.
+_unreleased/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS/editor
+.DS_Store
+Thumbs.db

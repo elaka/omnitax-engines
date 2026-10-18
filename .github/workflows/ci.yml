@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  engines:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Engine self-tests
+        run: node --test test/ --test-reporter=spec
+      - name: Money-math fuzz (invariant: HT + TVA + Stamp === TTC)
+        run: node scripts/fuzz_money_invariant.js
