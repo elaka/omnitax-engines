@@ -38,11 +38,12 @@ that code, extracted from a production platform and hardened by invariant tests.
 
 ## Status
 
-**Pre-release (v0.1.0).** Engines are extracted from a production platform and audit-reviewed;
-the release gate (naming scrub, path hygiene, test suite hardening) is being completed
-before the first public tag. Jurisdiction rule coverage grows per-release — the
-capability matrix in `docs/` (in progress) lists exactly which rules are implemented per
-format. No accreditation is claimed, implied, or possible from a piece of software.
+**v0.1.0 — first public release.** Six self-contained engines, 24 invariant tests,
+zero required dependencies. The engines are extracted from a production platform and
+audit-reviewed; the release gate (naming scrub, path hygiene, test suite hardening)
+is complete. Jurisdiction rule coverage grows per-release — the capability matrix in
+`docs/` (in progress) lists exactly which rules are implemented per format.
+No accreditation is claimed, implied, or possible from a piece of software.
 
 ## Requirements
 
