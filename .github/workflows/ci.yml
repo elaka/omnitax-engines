@@ -16,7 +16,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Engine self-tests
-        run: node --test test/ --test-reporter=spec
-      - name: Money-math fuzz (invariant: HT + TVA + Stamp === TTC)
-        run: node scripts/fuzz_money_invariant.js
+      - name: Engine self-tests (24 invariants)
+        run: |
+          for f in tests/test_*.js; do
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
