@@ -53,8 +53,7 @@ No accreditation is claimed, implied, or possible from a piece of software.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE). Copyright (c) 2026 Kais (VATMesh project; to be assigned
-to the incorporating entity upon formation).
+MIT — see [LICENSE](./LICENSE). Copyright (c) 2026 Kais.
 
 ## Contributing
 
