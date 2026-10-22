@@ -1,12 +1,34 @@
 {
   "name": "omnitax-engines",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Deterministic e-invoicing and tax-compliance engines: exact minor-unit money math (zero float drift), statutory XML validation (FatturaPA, TEIF, ZATCA UBL 2.1, FacturX/Peppol BIS 3.0), official-gateway sandbox simulators (SdI, TTN, ZATCA, ETA rejection codes), an append-only SHA-256 WORM Merkle audit ledger, multi-tenant row-level isolation, and Idempotency-Key middleware. No LLM ever touches statutory arithmetic.",
   "type": "commonjs",
-  "main": "engines/decimal-math.js",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "engines/",
+    "examples/",
+    "tests/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "engines": {
     "node": ">=18"
   },
+  "scripts": {
+    "test": "node tests/test_decimal_and_idempotency.js && node tests/test_worm_and_tenant_isolation.js && node tests/test_xsd_and_sandbox_gateways.js",
+    "pack:check": "npm pack --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elaka/omnitax-engines.git"
+  },
+  "homepage": "https://github.com/elaka/omnitax-engines#readme",
+  "bugs": {
+    "url": "https://github.com/elaka/omnitax-engines/issues"
+  },
+  "author": "Kais",
   "keywords": [
     "e-invoicing",
     "vat",
@@ -24,5 +46,8 @@
     "worm",
     "idempotency"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

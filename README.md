@@ -25,6 +25,42 @@ code, a retried request that double-books a document. These are deterministic pr
 they deserve deterministic code, not probabilistic text generation. omnitax-engines is
 that code, extracted from a production platform and hardened by invariant tests.
 
+## Install
+
+```bash
+npm install omnitax-engines
+```
+
+Node.js ≥ 18. Zero required dependencies.
+
+## Quickstart
+
+```js
+const { decimalMath } = require('omnitax-engines');
+
+const totals = decimalMath.calculateTaxBreakdown({
+  baseHt: '1000.00',
+  taxRatePct: 22,
+  currency: 'EUR'
+});
+
+console.log(totals.ht, totals.tva, totals.ttc);
+// 1000.00 220.00 1220.00
+```
+
+The full six-engine example — statutory XML validation, the offline SdI
+simulator, the WORM ledger, the tenant guard, and idempotency — is runnable:
+
+```bash
+node node_modules/omnitax-engines/examples/quickstart.js
+```
+
+Every engine is also available as a direct deep import:
+
+```js
+const { calculateTaxBreakdown } = require('omnitax-engines/engines/decimal-math');
+```
+
 ## The engines
 
 | Engine | What it does | Honesty notes |
@@ -38,11 +74,13 @@ that code, extracted from a production platform and hardened by invariant tests.
 
 ## Status
 
-**v0.1.0 — first public release.** Six self-contained engines, 24 invariant tests,
-zero required dependencies. The engines are extracted from a production platform and
-audit-reviewed; the release gate (naming scrub, path hygiene, test suite hardening)
-is complete. Jurisdiction rule coverage grows per-release — the executable tests in
-`tests/` are the coverage contract for the implemented rules.
+**v0.1.1 — first npm release.** Install with `npm install omnitax-engines`.
+Six self-contained engines, 24 invariant tests, zero required dependencies. The
+engine code is unchanged from v0.1.0; this release adds the npm package, the root
+namespace export, and the quickstart. The engines are extracted from a production
+platform and audit-reviewed; the release gate (naming scrub, path hygiene, test
+suite hardening) is complete. Jurisdiction rule coverage grows per-release — the
+executable tests in `tests/` are the coverage contract for the implemented rules.
 No accreditation is claimed, implied, or possible from a piece of software.
 
 ## Requirements
@@ -50,6 +88,13 @@ No accreditation is claimed, implied, or possible from a piece of software.
 - Node ≥ 18 (JSONL/memory fallbacks)
 - Node ≥ 22.5 unlocks the built-in `node:sqlite` storage tier
 - `better-sqlite3` is **optional** (only for the SQLite storage tiers) — zero required dependencies
+
+## Development
+
+```bash
+npm test          # 24 invariant tests
+npm run pack:check
+```
 
 ## License
 

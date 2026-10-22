@@ -13,6 +13,7 @@ _unreleased/
 # Node
 node_modules/
 npm-debug.log*
+*.tgz
 
 # OS/editor
 .DS_Store
