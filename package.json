@@ -1,7 +1,7 @@
 {
   "name": "omnitax-engines",
-  "version": "0.1.1",
-  "description": "Deterministic e-invoicing and tax-compliance engines: exact minor-unit money math (zero float drift), statutory XML validation (FatturaPA, TEIF, ZATCA UBL 2.1, FacturX/Peppol BIS 3.0), official-gateway sandbox simulators (SdI, TTN, ZATCA, ETA rejection codes), an append-only SHA-256 WORM Merkle audit ledger, multi-tenant row-level isolation, and Idempotency-Key middleware. No LLM ever touches statutory arithmetic.",
+  "version": "0.2.0",
+  "description": "Deterministic e-invoicing and tax-compliance engines: exact minor-unit money math (zero float drift), statutory XML validation (FatturaPA, TEIF, ZATCA UBL 2.1, FacturX/Peppol BIS 3.0), official-gateway sandbox simulators (SdI, TTN, ZATCA, ETA rejection codes), an append-only SHA-256 WORM Merkle audit ledger, multi-tenant row-level isolation, Idempotency-Key middleware, and production-grade HTTP API with OpenAPI 3.1 contract. No LLM ever touches statutory arithmetic.",
   "type": "commonjs",
   "main": "index.js",
   "files": [

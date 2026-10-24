@@ -1,6 +1,6 @@
 # omnitax-engines
 
-**Deterministic e-invoicing and tax-compliance engines for JavaScript/Node.**
+**Deterministic e-invoicing and tax-compliance engines for JavaScript/Node.**  
 Exact integer money math, rule-based statutory XML validation, offline government-gateway
 simulators, an append-only WORM Merkle audit ledger, multi-tenant query isolation, and
 idempotency middleware — as self-contained modules you can run anywhere.
@@ -33,7 +33,7 @@ npm install omnitax-engines
 
 Node.js ≥ 18. Zero required dependencies.
 
-## Quickstart
+## Quickstart (Library)
 
 ```js
 const { decimalMath } = require('omnitax-engines');
@@ -61,6 +61,44 @@ Every engine is also available as a direct deep import:
 const { calculateTaxBreakdown } = require('omnitax-engines/engines/decimal-math');
 ```
 
+## Quickstart (HTTP API)
+
+### Run Locally
+
+```bash
+node examples/api-server.js
+```
+
+**Output:**
+```
+✅ omnitax-engines API server running on http://localhost:3000
+```
+
+### Test the API
+
+```bash
+curl http://localhost:3000/api/v1/health
+
+curl -X POST http://localhost:3000/api/v1/math/calculate-breakdown \
+  -H "Content-Type: application/json" \
+  -d '{"baseHt": "1000", "taxRatePct": 22, "currency": "EUR"}'
+
+# With sandbox authentication
+curl http://localhost:3000/api/v1/audit/verify-chain \
+  -H "X-API-Key: vm_test_anything"
+```
+
+### Run in Docker
+
+```bash
+docker-compose up
+# API on http://localhost:3000
+```
+
+### Deploy to AWS Lambda
+
+See `docs/DEPLOY.md` for AWS Lambda, Heroku, and self-hosted options.
+
 ## The engines
 
 | Engine | What it does | Honesty notes |
@@ -72,22 +110,97 @@ const { calculateTaxBreakdown } = require('omnitax-engines/engines/decimal-math'
 | `tenant-rls-guard.js` | Tenant-scoped query guard: every statement is checked for `tenant_id` scoping; cross-tenant access throws. | A defense-in-depth heuristic, **not** a substitute for database row-level security or authorization middleware. |
 | `idempotency.js` | `Idempotency-Key` middleware: SHA-256 request fingerprinting, 24h replay with `X-Idempotent-Replay`, `409` for concurrent duplicates, `422` for key reuse with a mutated payload. | Memory store by default; optional SQLite tiers. |
 
+## HTTP API Endpoints
+
+### Health Check
+```
+GET /api/v1/health
+```
+Returns service status and engine list.
+
+### Calculate Tax Breakdown
+```
+POST /api/v1/math/calculate-breakdown
+```
+**Body:**
+```json
+{
+  "baseHt": "1000.00",
+  "taxRatePct": 22,
+  "currency": "EUR",
+  "stampDuty": 0,
+  "withholdingRatePct": 0
+}
+```
+
+### Validate XML
+```
+POST /api/v1/validate/xml
+```
+**Body:**
+```json
+{
+  "xml": "<FatturaElettronica>...</FatturaElettronica>",
+  "schemaType": "auto",
+  "country": "auto"
+}
+```
+
+### Sandbox Gateway Simulation
+```
+POST /api/v1/sandbox/clear
+```
+**Body:**
+```json
+{
+  "country": "IT",
+  "documentContent": "<FatturaElettronica>...</FatturaElettronica>",
+  "documentFormat": "xml"
+}
+```
+
+### Audit: Seal Document
+```
+POST /api/v1/audit/seal
+```
+**Auth Required:** `X-API-Key: vm_test_anything`  
+**Body:**
+```json
+{
+  "documentId": "INV-2026-001",
+  "eventType": "DOCUMENT_CLEARED",
+  "payload": { "amount": 1000 },
+  "jurisdiction": "IT"
+}
+```
+
+### Audit: Verify Chain
+```
+GET /api/v1/audit/verify-chain
+```
+**Auth Required:** `X-API-Key: vm_test_anything`
+
+---
+
 ## Status
 
-**v0.1.1 — first npm release.** Install with `npm install omnitax-engines`.
-Six self-contained engines, 24 invariant tests, zero required dependencies. The
-engine code is unchanged from v0.1.0; this release adds the npm package, the root
-namespace export, and the quickstart. The engines are extracted from a production
-platform and audit-reviewed; the release gate (naming scrub, path hygiene, test
-suite hardening) is complete. Jurisdiction rule coverage grows per-release — the
-executable tests in `tests/` are the coverage contract for the implemented rules.
-No accreditation is claimed, implied, or possible from a piece of software.
+**v0.2.0 — API Release.** HTTP router, OpenAPI 3.1, tenant resolution, idempotency, 
+sandbox gating, Docker ready. Six self-contained engines, 24 invariant tests, zero required 
+dependencies. Positioned for licensing: SaaS deployment, MCP integration, embedded library use.
+
+Engine code is unchanged from v0.1.0. The v0.1.0 GitHub tag remains immutable.
+
+## Licensing
+
+**MIT — free to use, modify, distribute forever.**
+
+Commercial licensing available for non-open-source deployment. See `LICENSING.md`.
 
 ## Requirements
 
 - Node ≥ 18 (JSONL/memory fallbacks)
 - Node ≥ 22.5 unlocks the built-in `node:sqlite` storage tier
-- `better-sqlite3` is **optional** (only for the SQLite storage tiers) — zero required dependencies
+- `better-sqlite3` is **optional** (only for SQLite storage tiers) — zero required dependencies
 
 ## Development
 
@@ -96,10 +209,6 @@ npm test          # 24 invariant tests
 npm run pack:check
 ```
 
-## License
-
-MIT — see [LICENSE](./LICENSE). Copyright (c) 2026 Kais.
-
 ## Contributing
 
 Rule additions must cite the statutory source (gazette, authority circular, official
@@ -107,3 +216,36 @@ spec version) in the rule's definition — every rule carries its provenance. Sy
 fixtures only; no real business documents. Claims discipline: PRs that overclaim
 (capability, accreditation, completeness) will be closed with a smile and a pointer to
 this README.
+
+## Adoption & Licensing
+
+Interested in:
+- Embedding as a library?
+- White-labeling the XML validator?
+- Building an e-invoice network?
+- Integrating with AI agents (MCP)?
+
+**Email:** `licensing@vatmesh.io`  
+**GitHub:** Open an issue with "[LICENSING]"
+
+## License
+
+MIT — see [LICENSE](./LICENSE). Copyright (c) 2026 Kais.
+
+---
+
+## Deployment
+
+Quick start:
+```bash
+npm install
+npm test
+node examples/api-server.js
+```
+
+Docker:
+```bash
+docker-compose up
+```
+
+Full guide: `docs/DEPLOY.md`
