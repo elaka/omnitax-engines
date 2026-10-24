@@ -2,6 +2,22 @@
 
 All notable changes to this package are documented here.
 
+## 0.2.0 — 2026-10-24
+
+**HTTP API Release — Licensible & SaaS-Ready**
+
+- Added `engineering_invariants.routes.js` — production-grade HTTP router mounting all six engines 
+  with tenant resolution, idempotency, and environment gating.
+- Added OpenAPI 3.1.0 machine-readable contract auto-generated from routes.
+- Added tenant identity resolution: `X-API-Key` header, `Bearer` token, or implicit `anonymous` for 
+  stateless endpoints.
+- Added Idempotency-Key middleware: SHA-256 request fingerprinting, 24-hour replay window, `409` on 
+  concurrent duplicates, `422` on key reuse with mutated payload.
+- Added environment mode detection: `SANDBOX` vs `PRODUCTION` gate on clearance outcomes.
+- Added `examples/api-server.js` — Express server reference, Docker-ready.
+- Engine arithmetic: unchanged from v0.1.1. All 24 invariant tests pass.
+- Positioned for licensing: SaaS deployment, MCP integration, embedded library use.
+
 ## 0.1.1 — 2026-10-22
 
 - First npm publication: `npm install omnitax-engines`.
