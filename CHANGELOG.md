@@ -2,6 +2,15 @@
 
 All notable changes to this package are documented here.
 
+## 0.2.1 — 2026-10-25
+
+**README-Only Patch — No Code Changes**
+
+- Corrected the licensing contact email in the README: `licensing@vatmesh.io` →
+  `admin@vatmesh.com` (matches the npm maintainer identity).
+- Engine code, tests, and packaging are unchanged from v0.2.0. All 24 invariant
+  tests pass.
+
 ## 0.2.0 — 2026-10-24
 
 **HTTP API Release — Licensible & SaaS-Ready**
