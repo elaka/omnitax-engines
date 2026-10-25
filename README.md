@@ -225,7 +225,7 @@ Interested in:
 - Building an e-invoice network?
 - Integrating with AI agents (MCP)?
 
-**Email:** `licensing@vatmesh.io`  
+**Email:** `admin@vatmesh.com`  
 **GitHub:** Open an issue with "[LICENSING]"
 
 ## License

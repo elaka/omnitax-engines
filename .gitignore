@@ -10,6 +10,27 @@ data/
 # Quarantined: coupled platform routes. Never part of the public release.
 _unreleased/
 
+# Internal strategy documents — these live in ../omnitax-engines-internal/
+# and must NEVER be committed to this public repository.
+/EXECUTION-COMPLETE.md
+/GROWTH-LAUNCH-KIT.md
+/LAUNCH-CAMPAIGN.md
+/MISSION-COMPLETE.md
+/V0.2.0-READY.md
+/VERSION-BUMP-PLAN.md
+/VERSION-BUMP-STRATEGY-FINAL.md
+/CUSTOMER-ANALYSIS.md
+/CUSTOMER-SEGMENTS-VISUAL.md
+/SALES-PLAYBOOK.md
+/GTM-AUTOMATION-PLAN.md
+/SUBAGENT-ORCHESTRATION-SPEC.md
+/GO-LIVE-EXECUTION.md
+/READY-TO-LAUNCH.md
+/EMAIL-INTEGRATION.md
+/EXECUTIVE-DASHBOARD.md
+/BOT-NOTIFICATION-COMPLETE.md
+/BOT-NOTIFICATION-FINAL.txt
+
 # Node
 node_modules/
 npm-debug.log*

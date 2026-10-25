@@ -38,15 +38,15 @@ If your organization requires **non-open-source deployment** or **proprietary mo
 | Option | Use Case | Price | Contact |
 |--------|----------|-------|---------|
 | **MIT (Free)** | Any use, open source | Free | GitHub issues |
-| **Commercial License** | Proprietary, non-attribution | Quote | licensing@vatmesh.io |
-| **Enterprise License** | SaaS, multi-tenant, SLA | Quote | licensing@vatmesh.io |
+| **Commercial License** | Proprietary, non-attribution | Quote | admin@vatmesh.com |
+| **Enterprise License** | SaaS, multi-tenant, SLA | Quote | admin@vatmesh.com |
 
 ---
 
 ## 📞 Contact
 
 **Licensing inquiries:**
-- Email: `licensing@vatmesh.io`
+- Email: `admin@vatmesh.com`
 - GitHub: Open an issue with "[LICENSING]" tag
 - Website: https://github.com/elaka/omnitax-engines#licensing
 
